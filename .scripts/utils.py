@@ -17,6 +17,8 @@ def load_level_data(base_path: str, level: int) -> Dict[str, Any]:
 
     # 1. Load static user profiles
     users_path = level_dir / "users.json"
+    if not users_path.exists():
+        raise FileNotFoundError(f"Required users file not found: {users_path}")
     with open(users_path, "r", encoding="utf-8") as f:
         users = json.load(f)
         for u in users:
@@ -38,14 +40,17 @@ def load_level_data(base_path: str, level: int) -> Dict[str, Any]:
         with open(personas_path, "r", encoding="utf-8") as f:
             for line in f:
                 if line.startswith("## ") or line.startswith("# "):
-                    # Basic heuristic: try to find user ID or name in header.
-                    # This might need refinement based on exact formatting.
-                    for cid in data.keys():
-                        if cid in line:
+                    current_citizen = None
+                    line_lower = line.lower()
+                    for cid, cdata in data.items():
+                        profile = cdata["profile"]
+                        first = profile.get("first_name", "").lower()
+                        last = profile.get("last_name", "").lower()
+                        if cid.lower() in line_lower or (first and first in line_lower) or (last and last in line_lower):
                             current_citizen = cid
                             break
-                    else:
-                        current_citizen = None
+                    if current_citizen is None:
+                        print(f"WARNING: no citizen matched persona header: {line.strip()}")
                 elif current_citizen:
                     data[current_citizen]["persona"] += line
 
@@ -71,3 +76,15 @@ def load_level_data(base_path: str, level: int) -> Dict[str, Any]:
                     data[cid]["status_events"].append(row)
 
     return data
+
+def write_submission(level: int, flagged_ids: List[str], base_path: str = ".") -> None:
+    """
+    Writes the flagged citizen IDs to a plain text file.
+    WARNING: Currently hardcoded to one ID per line. Verify this format 
+    against Sandbox_2026_V3.pdf or test against a training submission first.
+    """
+    out_path = Path(base_path) / f"output_lev{level}.txt"
+    with open(out_path, "w", encoding="utf-8") as f:
+        for cid in flagged_ids:
+            f.write(f"{cid}\n")
+    print(f"Submission file created: {out_path} with {len(flagged_ids)} flagged citizens.")
