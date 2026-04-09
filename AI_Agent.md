@@ -2,7 +2,7 @@
 
 This file is the primary context document for an AI agent working on the Reply Code Challenge 2026 (AI Agents track).
 Read this file first. For deeper context on any section, read the README.md inside the relevant subfolder.
-Do not read all subfolders at once — load only what you need to avoid unnecessary token consumption.
+Do not read all subfolders at once - load only what you need to avoid unnecessary token consumption.
 
 ---
 
@@ -20,7 +20,7 @@ The task is to identify which citizens are exhibiting anomalous behavior pattern
 The solution must be an agentic AI system where the LLM is the core decision-maker and orchestrator.
 Purely deterministic or rule-based solutions are disqualified.
 Every submission requires a Langfuse session ID for cost tracking and validation.
-The score is based on output files only — Langfuse tracks costs but does not affect the score.
+The score is based on output files only - Langfuse tracks costs but does not affect the score.
 
 ---
 
@@ -70,6 +70,7 @@ Start here (this file) to understand the overall context.
 
 Then load only the README.md of the subfolder that is relevant to your current task:
 
+- To set up the environment: run `make` from the repo root, then `cp .env.example .env` and fill in credentials, then `make check`
 - If you are learning the stack or setting up dependencies: read 00_AI_Agents_Learning/README.md
 - If you are building or testing a sandbox solution: read 01_AI_Agents_Training/README.md, then 01_AI_Agents_Training/GUIDE.md
 - If you are preparing for or working on the real challenge: read 02_AI_Agents_Challenge/00_How_It_Works/README.md
@@ -104,7 +105,13 @@ Do not read the problem statement PDF directly unless you have confirmed you nee
 - ulid-py: unique session ID generation
 - python-dotenv: .env file loading
 
-Required environment variables (get from challenge platform or sandbox "View my Keys"):
+Required environment variables - copy `.env.example` to `.env` in the **repository root** and fill in your values:
+
+```bash
+make          # creates root .venv and installs all dependencies
+cp .env.example .env  # then fill in your real credentials
+make check    # verifies the environment is fully working
+```
 
 ```
 OPENROUTER_API_KEY=your-key
@@ -114,4 +121,6 @@ LANGFUSE_HOST=https://challenges.reply.com/langfuse
 TEAM_NAME=your-team-name
 ```
 
-Never commit the .env file. It is already listed in .gitignore.
+All scripts and notebooks use load_dotenv(find_dotenv()), which traverses up the directory tree from wherever they run, so the single root .env is found automatically by every subfolder.
+
+Never commit the .env file. It is already listed in .gitignore. The .env.example is safe to commit.

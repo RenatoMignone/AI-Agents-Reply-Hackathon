@@ -5,6 +5,8 @@ All costs are tracked via Langfuse session IDs. Score is based on output files o
 
 Python 3.14 is incompatible with Langfuse. Use Python 3.10-3.13.
 
+The .env file lives in the repository root. All scripts must use load_dotenv(find_dotenv()) so that python-dotenv traverses up the directory tree to find it regardless of which subfolder the script runs from.
+
 ---
 
 ## Token concepts
@@ -40,11 +42,11 @@ TEAM_NAME=your-team-name
 
 ```python
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 
-load_dotenv()
+load_dotenv(find_dotenv())  # finds .env in repo root regardless of working directory
 
 model_id = "gpt-4o-mini"
 model = ChatOpenAI(
@@ -68,9 +70,12 @@ How it works:
 
 ```python
 import os, ulid
+from dotenv import load_dotenv, find_dotenv
 from langfuse import Langfuse, observe
 from langfuse.langchain import CallbackHandler
 from langchain_core.messages import HumanMessage
+
+load_dotenv(find_dotenv())  # finds .env in repo root regardless of working directory
 
 langfuse_client = Langfuse(
     public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),

@@ -60,9 +60,12 @@ Minimal code to generate a session ID and run a traced call:
 
 ```python
 import os, ulid
+from dotenv import load_dotenv, find_dotenv
 from langfuse import Langfuse, observe
 from langfuse.langchain import CallbackHandler
 from langchain_core.messages import HumanMessage
+
+load_dotenv(find_dotenv())  # finds .env in repo root from any subfolder
 
 langfuse_client = Langfuse(
     public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),

@@ -34,14 +34,14 @@ Before starting, make sure you have:
 
 Python 3.10+ installed (see warning below about Python 3.14)
 OpenRouter API key (get one free at https://openrouter.ai)
-Langfuse credentials — You should have received LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, and LANGFUSE_HOST for the challenge
+Langfuse credentials - You should have received LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, and LANGFUSE_HOST for the challenge
 Completed Tutorial 01 - You should understand basic agent creation
 ⚠️ Python 3.14 Warning: Python 3.14 can cause compatibility issues with Langfuse. We recommend using Python 3.10, 3.11, 3.12, or 3.13 to avoid problems.
 
 First time? See Tutorial 01 for detailed instructions on installing Python, setting up a virtual environment, and creating your API key.
 
 Quick Setup Checklist
-Install Python 3.10–3.13: Download from python.org — verify with python3 --version (avoid Python 3.14)
+Install Python 3.10–3.13: Download from python.org - verify with python3 --version (avoid Python 3.14)
 Create a virtual environment: python3 -m venv venv && source venv/bin/activate
 Get an OpenRouter API key: Sign up at openrouter.ai → Keys → Create Key
 Create a .env file in the project root with:
@@ -51,7 +51,7 @@ LANGFUSE_SECRET_KEY=sk-your-secret-key-here
 LANGFUSE_HOST=https://challenges.reply.com/langfuse
 TEAM_NAME=your-team-name
 Installation
-Install the required dependencies directly. This cell is self-contained—no external requirements.txt needed.
+Install the required dependencies directly. This cell is self-contained-no external requirements.txt needed.
 
 langfuse provides the @observe() decorator and CallbackHandler for automatic tracing
 ulid-py generates unique session IDs
@@ -156,13 +156,13 @@ print(f"\n✓ Trace sent to Langfuse with full token usage and cost data")
 print(f"✓ Grouped under session: {session_id}")
 print("✓ You can inspect this session using get_trace_info(session_id) and print_results(info) below.")
 Track Multiple Calls with Session Grouping
-Since every call to run_llm_call() shares the same session_id, all traces are grouped together. There's no need to manually accumulate tokens — Langfuse aggregates everything for you.
+Since every call to run_llm_call() shares the same session_id, all traces are grouped together. There's no need to manually accumulate tokens - Langfuse aggregates everything for you.
 
 This is the key advantage over manual tracking:
 
-No manual accumulation — Langfuse sums tokens and costs across all traces in a session
-Automatic cost calculation — Based on Langfuse's built-in model pricing
-Queryable traces — You (or the organizers) can query Langfuse by session_id using the Langfuse Python client or HTTP API to see usage and costs
+No manual accumulation - Langfuse sums tokens and costs across all traces in a session
+Automatic cost calculation - Based on Langfuse's built-in model pricing
+Queryable traces - You (or the organizers) can query Langfuse by session_id using the Langfuse Python client or HTTP API to see usage and costs
 Let's make multiple calls under the same session:
 
 questions = [
@@ -315,19 +315,19 @@ def print_results(info):
 What You've Learned
 Congratulations! You've learned how to monitor and manage resources for LangChain agents using Langfuse. Here's what we covered:
 
-✅ Langfuse setup — Initializing the client, @observe() decorator, and CallbackHandler for automatic tracing
-✅ Automatic token tracking — CallbackHandler captures all token usage from LangChain calls
-✅ Automatic cost calculation — Langfuse calculates costs based on its built-in model pricing
-✅ Session grouping — Using update_current_trace(session_id=...) to group calls
-✅ Session ID generation — Creating unique IDs with {TEAM_NAME}-{ULID} format
-✅ Trace checking — Using the integrated viewer get_trace_info(session_id) and print_results(info) to inspect your data
+✅ Langfuse setup - Initializing the client, @observe() decorator, and CallbackHandler for automatic tracing
+✅ Automatic token tracking - CallbackHandler captures all token usage from LangChain calls
+✅ Automatic cost calculation - Langfuse calculates costs based on its built-in model pricing
+✅ Session grouping - Using update_current_trace(session_id=...) to group calls
+✅ Session ID generation - Creating unique IDs with {TEAM_NAME}-{ULID} format
+✅ Trace checking - Using the integrated viewer get_trace_info(session_id) and print_results(info) to inspect your data
 
 Key Takeaways
-@observe() + CallbackHandler — The recommended pattern: decorate functions with @observe() and create CallbackHandler() inside to automatically attach to the current trace
-Session tracking — Use generate_session_id() with ULID and update_current_trace(session_id=...) to group calls
-langfuse_client.flush() — Always flush after your calls to ensure all traces are sent
-No manual cost tracking needed — Langfuse handles token counting and cost calculation automatically
-Check your traces — Use the integrated viewer (get_trace_info + print_results) in this notebook to see costs and trace details
+@observe() + CallbackHandler - The recommended pattern: decorate functions with @observe() and create CallbackHandler() inside to automatically attach to the current trace
+Session tracking - Use generate_session_id() with ULID and update_current_trace(session_id=...) to group calls
+langfuse_client.flush() - Always flush after your calls to ensure all traces are sent
+No manual cost tracking needed - Langfuse handles token counting and cost calculation automatically
+Check your traces - Use the integrated viewer (get_trace_info + print_results) in this notebook to see costs and trace details
 How LangChain + Langfuse Tracing Works
 @observe() decorated function
     ↓
@@ -345,28 +345,28 @@ get_trace_info(session_id) + print_results(info) → view traces, costs, session
 Cost Optimization Strategies
 When building production systems:
 
-Monitor regularly — Use the integrated viewer to check costs after each session
-Choose models wisely — Balance cost vs. capability for your use case
-Optimize prompts — Shorter prompts = fewer input tokens = lower costs
-Start small, scale up — Begin with smaller models and only switch to larger ones if needed
-Multi-agent strategy — Use larger models for critical decisions and smaller models for simpler tasks
+Monitor regularly - Use the integrated viewer to check costs after each session
+Choose models wisely - Balance cost vs. capability for your use case
+Optimize prompts - Shorter prompts = fewer input tokens = lower costs
+Start small, scale up - Begin with smaller models and only switch to larger ones if needed
+Multi-agent strategy - Use larger models for critical decisions and smaller models for simpler tasks
 Best Practices
-Always set session IDs — Essential for the challenge; groups all costs under one session
-Use @observe() + CallbackHandler — Wrap LLM-calling code so Langfuse captures everything automatically
-Flush after calls — Call langfuse_client.flush() to ensure traces are sent
-Generate unique session IDs — Use ULID to avoid collisions
+Always set session IDs - Essential for the challenge; groups all costs under one session
+Use @observe() + CallbackHandler - Wrap LLM-calling code so Langfuse captures everything automatically
+Flush after calls - Call langfuse_client.flush() to ensure traces are sent
+Generate unique session IDs - Use ULID to avoid collisions
 Next Steps
 Now that you understand resource management with Langfuse, you can:
 
-Apply to your agents — Add Langfuse tracing to your own systems
-Optimize existing agents — Use the integrated viewer to identify and reduce expensive operations
-Build cost-aware systems — Design agents with cost efficiency in mind
-Scale confidently — Understand costs before deploying at scale
+Apply to your agents - Add Langfuse tracing to your own systems
+Optimize existing agents - Use the integrated viewer to identify and reduce expensive operations
+Build cost-aware systems - Design agents with cost efficiency in mind
+Scale confidently - Understand costs before deploying at scale
 Experiment
 Try these modifications:
 
-Add metadata — Use langfuse_client.update_current_trace(metadata={...}) to tag traces
-Compare models — Use different models and compare costs with the integrated viewer
-Add budget checking — Query Langfuse API to check session costs before making more calls
-Track by agent type — Use different session IDs or tags for different agent types
+Add metadata - Use langfuse_client.update_current_trace(metadata={...}) to tag traces
+Compare models - Use different models and compare costs with the integrated viewer
+Add budget checking - Query Langfuse API to check session costs before making more calls
+Track by agent type - Use different session IDs or tags for different agent types
 For more information, visit the Langfuse documentation.

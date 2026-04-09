@@ -133,7 +133,8 @@ The sandbox challenge page is at: challenges.reply.com (login required, navigate
 ## Links
 
 - Challenge platform: https://challenges.reply.com
-- Sandbox page: challenges.reply.com/challenges/ai-agent/home (then navigate to Your Sandbox Challenge Page)
-- How it works: ../02_AI_Agents_Challenge/00_How_It_Works/README.md
+- Sandbox page: https://challenges.reply.com/challenges/ai-agent/home (navigate to "Your Sandbox Challenge Page")
+- Environment setup: run `make` from the repository root, then `cp .env.example .env` and fill in credentials from "View my Keys"
+- How it works (rules, scoring): ../02_AI_Agents_Challenge/00_How_It_Works/README.md
 - Langfuse and API guide: ../02_AI_Agents_Challenge/00_How_It_Works/api_guidelines.md
 - Model whitelist: ../02_AI_Agents_Challenge/00_How_It_Works/model_whitelist.md

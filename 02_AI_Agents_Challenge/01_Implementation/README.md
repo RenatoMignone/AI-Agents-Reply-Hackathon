@@ -15,9 +15,10 @@ It is currently empty. Create your solution files here during the challenge.
   agent.py            - Agent and model initialization
   tools.py            - Tool functions used by the agents
   utils.py            - Data loading, parsing, and output formatting helpers
-  .env                - Your credentials (do not commit)
-  requirements.txt    - Or use a pip freeze output
 ```
+
+Credentials: use the root .env file (one level above 02_AI_Agents_Challenge). Do not create a local .env here.
+Dependencies: the root .venv already contains everything. Activate it with `source ../../.venv/bin/activate` or run `make` from the repo root if not yet set up.
 
 ---
 
@@ -51,7 +52,11 @@ Evaluation submissions (one per dataset, irreversible):
 Update this section when you have a working solution:
 
 ```bash
-# Example (fill in when built)
+# Activate the root virtual environment (from repo root)
 source .venv/bin/activate
+
+# Or from this folder:
+source ../../.venv/bin/activate
+
 python main.py --level 1 --output output_lev1.txt
 ```

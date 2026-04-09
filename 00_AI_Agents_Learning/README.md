@@ -39,7 +39,14 @@ pip install langchain langchain-openai langgraph python-dotenv langfuse ulid-py 
 
 ### 2. Configure your credentials
 
-Copy your keys into the .env file in this folder before running any notebook:
+The .env file must be placed in the repository root (one level above this folder), not inside 00_AI_Agents_Learning.
+Copy .env.example from the root and fill in your real values:
+
+```bash
+# from the repo root:
+cp .env.example .env
+# then fill in the real values
+```
 
 ```
 OPENROUTER_API_KEY=your-api-key-here
@@ -48,6 +55,8 @@ LANGFUSE_SECRET_KEY=sk-your-secret-key-here
 LANGFUSE_HOST=https://challenges.reply.com/langfuse
 TEAM_NAME=your-team-name
 ```
+
+All notebooks use load_dotenv(find_dotenv()) which traverses up from the Notebooks/ directory to find the root .env automatically.
 
 | Variable | Where to get it |
 |----------|----------------|
@@ -104,7 +113,7 @@ Each notebook includes:
 
 ## Notes
 
-The .env file must live in this folder for load_dotenv() to find it automatically.
+The .env file must live in the repository root, not in this folder. load_dotenv(find_dotenv()) in each notebook traverses up the directory tree to find it.
 The .venv directory is local and must not be committed (it is in .gitignore).
 For the challenge, always use Langfuse session IDs to group all resource usage for a single run. Session IDs follow the format {TEAM_NAME}-{ULID}.
 All notebooks use gpt-4o-mini via OpenRouter as the default model. You can change the model parameter to experiment with other whitelisted models.

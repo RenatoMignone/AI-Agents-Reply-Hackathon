@@ -48,16 +48,23 @@ Key signals to look for:
 
 ## Step 3: Set up your environment
 
-From the 00_AI_Agents_Learning virtual environment or create a new one:
+Create or reuse the virtual environment in your implementations folder:
 
 ```bash
-cd /path/to/01_AI_Agents_Training/01_Sandbox_Implementations
+cd 01_Sandbox_Implementations
 python3 -m venv .venv
 source .venv/bin/activate
 pip install langchain langchain-openai langfuse python-dotenv ulid-py langgraph
 ```
 
-Create a .env file:
+The .env file lives in the repository root (one level above 01_AI_Agents_Training).
+Copy .env.example from the root to .env at the root and fill in your credentials:
+
+```bash
+# from the repo root:
+cp .env.example .env
+# then fill in the real values
+```
 
 ```
 OPENROUTER_API_KEY=your-sandbox-key
@@ -68,6 +75,8 @@ TEAM_NAME=your-team-name
 ```
 
 Get your keys from the sandbox challenge page by clicking "View my Keys".
+
+All scripts must use load_dotenv(find_dotenv()) so python-dotenv traverses up to find the root .env automatically.
 
 In sandbox mode, no credits are provided. Use free models on OpenRouter:
 - meta-llama/llama-3.1-8b-instruct (free)
@@ -112,13 +121,13 @@ Minimal working pattern using the required Langfuse integration:
 
 ```python
 import os, ulid, json
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 from langfuse import Langfuse, observe
 from langfuse.langchain import CallbackHandler
 
-load_dotenv()
+load_dotenv(find_dotenv())  # finds .env in repo root regardless of working directory
 
 model = ChatOpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),

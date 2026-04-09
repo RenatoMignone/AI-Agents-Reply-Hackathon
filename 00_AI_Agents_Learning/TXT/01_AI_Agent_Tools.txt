@@ -1,15 +1,15 @@
 Adding Tools to Agents with LangChain
-This tutorial teaches you how to extend AI agents with tools—functions that enable agents to perform actions beyond just generating text. By the end, you'll understand what tools are, how to create them, and how agents use them to accomplish tasks.
+This tutorial teaches you how to extend AI agents with tools-functions that enable agents to perform actions beyond just generating text. By the end, you'll understand what tools are, how to create them, and how agents use them to accomplish tasks.
 
 What Are Tools?
-Tools are functions or capabilities that agents can call to interact with the world. Think of them as the agent's "hands"—they allow the agent to:
+Tools are functions or capabilities that agents can call to interact with the world. Think of them as the agent's "hands"-they allow the agent to:
 
 Perform calculations or data processing
 Access external APIs or databases
 Read or write files
 Execute code or scripts
 Search the web or query information
-Without tools, agents are like very smart chatbots—they can reason and generate text, but they can't take actions. With tools, agents become active problem-solvers that can manipulate data, fetch real-time information, and automate tasks.
+Without tools, agents are like very smart chatbots-they can reason and generate text, but they can't take actions. With tools, agents become active problem-solvers that can manipulate data, fetch real-time information, and automate tasks.
 
 Why Tools Matter
 Tools transform agents from passive responders into active automators. They enable:
@@ -37,7 +37,7 @@ First time? See Tutorial 01 for detailed instructions on installing Python, sett
 Quick Setup Checklist
 If you haven't set up yet, here's the short version:
 
-Install Python 3.10+: Download from python.org — verify with python3 --version
+Install Python 3.10+: Download from python.org - verify with python3 --version
 Create a virtual environment: python3 -m venv venv && source venv/bin/activate
 Get an OpenRouter API key: Sign up at openrouter.ai → Keys → Create Key
 Create a .env file in the project root: touch .env, then add OPENROUTER_API_KEY=your-key-here
@@ -48,13 +48,13 @@ OPENROUTER_API_KEY=your-api-key-here
 If you completed Tutorial 01, you should already have this set up!
 
 Installation
-Install the required dependencies directly. This cell is self-contained—no external requirements.txt needed. We'll be using the tool decorator from LangChain to create our tools.
+Install the required dependencies directly. This cell is self-contained-no external requirements.txt needed. We'll be using the tool decorator from LangChain to create our tools.
 
 %pip install langchain langchain-openai python-dotenv --quiet
 Setup
 Import the necessary libraries. Notice the new import: from langchain.tools import tool - this is the decorator we'll use to convert Python functions into agent tools.
 
-The model configuration is similar to Tutorial 01, but notice the temperature is set to 0.1 instead of 0.7. Lower temperature makes the agent more deterministic and focused, which is often better when using tools—we want the agent to reliably choose the right tool rather than being creative about it.
+The model configuration is similar to Tutorial 01, but notice the temperature is set to 0.1 instead of 0.7. Lower temperature makes the agent more deterministic and focused, which is often better when using tools-we want the agent to reliably choose the right tool rather than being creative about it.
 
 import os
 from dotenv import load_dotenv
@@ -90,7 +90,7 @@ Key Components of a Tool
 Function signature - Defines the inputs (parameters) and output (return type)
 Docstring - Describes what the tool does, its parameters, and return value
 Implementation - The actual code that performs the action
-The docstring is crucial—the agent reads it to understand:
+The docstring is crucial-the agent reads it to understand:
 
 What the tool does
 When to use it
@@ -135,7 +135,7 @@ Agent analyzes whether a tool is needed (e.g., "does this require temperature co
 Agent calls the tool with appropriate parameters (extracted from your question)
 Agent receives the tool's result
 Agent formulates a natural language response using the result
-The agent automatically handles all of this—you don't need to manually call the tool!
+The agent automatically handles all of this-you don't need to manually call the tool!
 
 Pro tip: You can add multiple tools by passing a list: tools=[tool1, tool2, tool3]. Start with 2-3 tools to keep things manageable.
 
@@ -151,7 +151,7 @@ Recognizes when a tool is needed
 Extracts the right parameters from your question (value, from_unit, to_unit)
 Calls the tool automatically
 Uses the result to give you a natural answer
-Notice in the output you'll see tool calls being made—this shows when the agent called the tool. The agent then uses the tool's result to craft its response.
+Notice in the output you'll see tool calls being made-this shows when the agent called the tool. The agent then uses the tool's result to craft its response.
 
 Test Cases
 We'll try three scenarios:
@@ -159,7 +159,7 @@ We'll try three scenarios:
 Simple conversion - Direct request for conversion
 Reverse conversion - Same tool, different direction
 Complex question - Conversion plus additional reasoning
-This demonstrates the agent's flexibility—it can handle the same tool in different contexts!
+This demonstrates the agent's flexibility-it can handle the same tool in different contexts!
 
 # Test 1: Simple conversion
 response = agent.invoke({"messages": [HumanMessage("Convert 25 degrees Celsius to Fahrenheit")]})
@@ -192,7 +192,7 @@ It checks available tools and their descriptions
 If a tool matches, it extracts parameters from your question
 It calls the tool and receives the result
 It incorporates the result into a natural language response
-This all happens automatically—you just ask questions naturally!
+This all happens automatically-you just ask questions naturally!
 
 Best Practices
 When creating tools:

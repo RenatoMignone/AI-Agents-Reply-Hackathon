@@ -1,7 +1,7 @@
 # AI Agents - Reply Code Challenge 2026
 
 This repository contains the full learning path, sandbox training materials, and challenge solution workspace
-for the Reply Code Challenge 2026 — AI Agents track.
+for the Reply Code Challenge 2026 - AI Agents track.
 
 > **Documentation Design Notice**
 > All documentation in this repository is written and structured for AI agent readability and token efficiency.
@@ -15,16 +15,16 @@ for the Reply Code Challenge 2026 — AI Agents track.
 
 This is a competition workspace for the Reply Code Challenge 2026, a timed AI agent engineering event.
 
-**Challenge day:** April 16th, 2026 — 6 hours (15:30 to 21:30 CEST)
+**Challenge day:** April 16th, 2026 - 6 hours (15:30 to 21:30 CEST)
 **Theme:** Monitor. Adapt. Defend.
 **Format:** Build an AI agent system that analyzes citizen behavioral data
 and identifies anomalous patterns indicating welfare risk.
 
 The repository is organized into three phases that follow the natural progression from learning to competing:
 
-1. **Learning** — Understand the technology stack through four progressive tutorials
-2. **Training** — Practice against sandbox datasets that replicate the real competition mechanics
-3. **Challenge** — Build and submit the actual competition solution on April 16th
+1. **Learning** - Understand the technology stack through four progressive tutorials
+2. **Training** - Practice against sandbox datasets that replicate the real competition mechanics
+3. **Challenge** - Build and submit the actual competition solution on April 16th
 
 ---
 
@@ -34,13 +34,18 @@ The repository is organized into three phases that follow the natural progressio
 AI_Agents_Reply_Challenge/
   AI_Agent.md                    - Primary entry point for AI agents
   README.md                      - This file
+  Makefile                       - Run 'make' to set up the entire environment
+  .env.example                   - Credential template (safe to commit, copy to .env and fill in)
+  .env                           - Your real credentials (not committed, excluded by .gitignore)
   .gitignore                     - Excludes .env, .venv, __pycache__, build artifacts
-  .venv/                         - Optional root virtual environment (not required)
+  .venv/                         - Root virtual environment (created by 'make setup')
+
+  .setup/                        - Environment setup scripts and dependency manifest
+    requirements.txt             - All Python dependencies for the entire project
+    check_setup.py               - Verifies imports and .env credentials (run via 'make check')
 
   00_AI_Agents_Learning/         - Tutorial notebooks (start here if new to the stack)
     README.md                    - Setup, credential config, notebook order
-    .env                         - API keys and Langfuse credentials (not committed)
-    .venv/                       - Virtual environment for this section
     Notebooks/                   - Four Jupyter notebooks to run in sequence
     TXT/                         - Source instructions used to build the notebooks
 
@@ -64,32 +69,44 @@ AI_Agents_Reply_Challenge/
       README.md                  - Architecture notes and run instructions (fill as you build)
 ```
 
+
 ---
 
 ## Getting Started
 
 **Prerequisites:**
-- Python 3.10 to 3.13 — Python 3.14 is incompatible with Langfuse, do not use it
+- Python 3.10 to 3.13 - Python 3.14 is incompatible with Langfuse, do not use it
+- GNU Make (pre-installed on Linux and macOS)
 - An OpenRouter API key (free at openrouter.ai)
 - Langfuse credentials provided by the challenge organizers on challenge day
 - For sandbox training: sandbox keys available on the challenge platform under "View my Keys"
 
-**Quick start — learning section:**
+**One-command setup (from the repo root):**
 
 ```bash
-cd 00_AI_Agents_Learning
-source .venv/bin/activate
-# Edit .env with your credentials
-jupyter notebook Notebooks/
+make
 ```
 
-**Quick start — sandbox training:**
+This creates the root `.venv/`, installs all dependencies from `.setup/requirements.txt`, and registers the Jupyter kernel.
+
+**Then configure credentials:**
 
 ```bash
-cd 01_AI_Agents_Training
-# Read README.md and GUIDE.md before writing code
-# Read 00_Sandbox_Sample_Material/Sandbox_2026_V3.pdf for the problem statement
-# Build your solution in 01_Sandbox_Implementations/
+cp .env.example .env
+# Edit .env and fill in your real values
+```
+
+**Verify everything is working:**
+
+```bash
+make check
+```
+
+**Launch Jupyter:**
+
+```bash
+make jupyter
+# or activate manually: source .venv/bin/activate && jupyter lab 00_AI_Agents_Learning/Notebooks/
 ```
 
 ---
@@ -139,8 +156,22 @@ See 02_AI_Agents_Challenge/00_How_It_Works/README.md for the full rules, scoring
 
 ---
 
+## Makefile targets
+
+| Target                 | What it does                                                              |
+| ---------------------- | ------------------------------------------------------------------------- |
+| `make` or `make setup` | Creates root `.venv/`, installs all deps, registers Jupyter kernel        |
+| `make check`           | Verifies all imports work and .env has all required credentials filled in |
+| `make jupyter`         | Launches Jupyter Lab in the learning notebooks folder                     |
+| `make clean`           | Removes the root `.venv/` (run `make` again to recreate)                  |
+
+---
+
 ## Security
 
 Never commit the .env file. It is excluded by .gitignore.
 API keys and Langfuse credentials must be kept private at all times.
 The .venv directories are also excluded from version control.
+
+To set up credentials: copy .env.example to .env in the repository root and fill in your values.
+All scripts and notebooks use load_dotenv(find_dotenv()) to locate the root .env automatically from any subfolder.
