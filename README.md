@@ -1,98 +1,146 @@
 # AI Agents - Reply Code Challenge 2026
 
-This repository contains the full learning path and challenge materials for the **Reply Code Challenge 2025 — AI Agents** track.
+This repository contains the full learning path, sandbox training materials, and challenge solution workspace
+for the Reply Code Challenge 2026 — AI Agents track.
+
+> **Documentation Design Notice**
+> All documentation in this repository is written and structured for AI agent readability and token efficiency.
+> Every file follows these rules: no emojis, no decorative padding, no redundant prose, no information duplicated across files.
+> Each README is scoped strictly to its own folder. Cross-folder navigation is handled through explicit pointer lines only.
+> The primary entry point for any AI agent working in this repository is `AI_Agent.md` in this root directory.
 
 ---
 
-## 📁 Repository Structure
+## What this repository is for
+
+This is a competition workspace for the Reply Code Challenge 2026, a timed AI agent engineering event.
+
+**Challenge day:** April 16th, 2026 — 6 hours (15:30 to 21:30 CEST)
+**Theme:** Monitor. Adapt. Defend.
+**Format:** Build an AI agent system that analyzes citizen behavioral data
+and identifies anomalous patterns indicating welfare risk.
+
+The repository is organized into three phases that follow the natural progression from learning to competing:
+
+1. **Learning** — Understand the technology stack through four progressive tutorials
+2. **Training** — Practice against sandbox datasets that replicate the real competition mechanics
+3. **Challenge** — Build and submit the actual competition solution on April 16th
+
+---
+
+## Repository Structure
 
 ```
-.
-├── .gitignore
-├── README.md                        ← You are here
-├── .venv/                           ← Root virtual environment (optional)
-│
-├── 00_AI_Agents_Learning/           ← Tutorial notebooks (start here)
-│   ├── .env                         ← Your API credentials
-│   ├── .venv/                       ← Learning section virtual environment
-│   ├── README.md
-│   ├── Notebooks/
-│   │   ├── 00_AI_Agents.ipynb
-│   │   ├── 01_00_AI_Agents_Tools.ipynb
-│   │   ├── 02_Multi_Agents.ipynb
-│   │   └── 03_Agent_Resource_Management.ipynb
-│   └── TXT/                         ← Original instructions used to build notebooks
-│
-├── 01_AI_Agents_Training/           ← Training exercises
-│   └── README.md
-│
-└── 02_AI_Agents_Challenge/          ← The actual challenge solution
-    └── README.md
+AI_Agents_Reply_Challenge/
+  AI_Agent.md                    - Primary entry point for AI agents
+  README.md                      - This file
+  .gitignore                     - Excludes .env, .venv, __pycache__, build artifacts
+  .venv/                         - Optional root virtual environment (not required)
+
+  00_AI_Agents_Learning/         - Tutorial notebooks (start here if new to the stack)
+    README.md                    - Setup, credential config, notebook order
+    .env                         - API keys and Langfuse credentials (not committed)
+    .venv/                       - Virtual environment for this section
+    Notebooks/                   - Four Jupyter notebooks to run in sequence
+    TXT/                         - Source instructions used to build the notebooks
+
+  01_AI_Agents_Training/         - Sandbox training environment and practice datasets
+    README.md                    - Problem domain, file schemas, submission interface
+    GUIDE.md                     - Step-by-step sandbox workflow (8 steps)
+    00_Sandbox_Sample_Material/  - Official organizer-provided materials
+      Sandbox_2026_V3.pdf        - Full problem statement (read before coding)
+      Submission_Tracking.md     - Submission log, results, and Langfuse code reference
+      Public_Levels/             - Training datasets for levels 1, 2, and 3
+    01_Sandbox_Implementations/  - Write your sandbox solution code here
+    resources/                   - Screenshots of the web submission interface
+
+  02_AI_Agents_Challenge/        - The actual competition solution workspace
+    README.md                    - Contents overview for this folder
+    00_How_It_Works/             - Official rules, API docs, and model reference
+      README.md                  - Competition rules, timeline, scoring, prizes
+      api_guidelines.md          - Langfuse integration code and best practices
+      model_whitelist.md         - All whitelisted OpenRouter model IDs
+    01_Implementation/           - Write your challenge day solution here
+      README.md                  - Architecture notes and run instructions (fill as you build)
 ```
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### Prerequisites
+**Prerequisites:**
+- Python 3.10 to 3.13 — Python 3.14 is incompatible with Langfuse, do not use it
+- An OpenRouter API key (free at openrouter.ai)
+- Langfuse credentials provided by the challenge organizers on challenge day
+- For sandbox training: sandbox keys available on the challenge platform under "View my Keys"
 
-- Python 3.10–3.13 (avoid 3.14 — Langfuse compatibility issues)
-- An [OpenRouter](https://openrouter.ai) API key (free)
-- Langfuse credentials provided by the challenge organisers
-
-### Quick Start
+**Quick start — learning section:**
 
 ```bash
-# 1. Clone the repo
-git clone <this-repo-url>
-cd AI_Agents_Reply_Challenge
-
-# 2. Enter the learning section
 cd 00_AI_Agents_Learning
-
-# 3. Activate the virtual environment
 source .venv/bin/activate
-
-# 4. Fill in your credentials
-nano .env   # or use your preferred editor
-
-# 5. Launch Jupyter
+# Edit .env with your credentials
 jupyter notebook Notebooks/
 ```
 
----
+**Quick start — sandbox training:**
 
-## 📚 Learning Path
-
-The `00_AI_Agents_Learning` section contains **four progressive tutorials**:
-
-| #   | Notebook                 | Concepts                                     |
-| --- | ------------------------ | -------------------------------------------- |
-| 01  | Basic Agent Creation     | LangChain, OpenRouter, system prompts        |
-| 02  | Tools & Function Calling | `@tool` decorator, automatic tool selection  |
-| 03  | Multi-Agent Systems      | Orchestrator pattern, "Agents as Tools"      |
-| 04  | Resource Management      | Langfuse tracing, session IDs, cost tracking |
-
-See [`00_AI_Agents_Learning/README.md`](00_AI_Agents_Learning/README.md) for full setup and usage instructions.
+```bash
+cd 01_AI_Agents_Training
+# Read README.md and GUIDE.md before writing code
+# Read 00_Sandbox_Sample_Material/Sandbox_2026_V3.pdf for the problem statement
+# Build your solution in 01_Sandbox_Implementations/
+```
 
 ---
 
-## 🔧 Tech Stack
+## Learning Path
 
-| Library                                                                         | Purpose                                        |
-| ------------------------------------------------------------------------------- | ---------------------------------------------- |
-| [LangChain](https://python.langchain.com/)                                      | Agent framework and tool abstractions          |
-| [LangGraph](https://langchain-ai.github.io/langgraph/)                          | ReAct agent execution engine                   |
-| [langchain-openai](https://python.langchain.com/docs/integrations/chat/openai/) | OpenAI-compatible model connector              |
-| [OpenRouter](https://openrouter.ai/)                                            | Unified LLM API gateway                        |
-| [Langfuse](https://langfuse.com/)                                               | Observability: token tracking, cost monitoring |
-| [ulid-py](https://github.com/mdomke/python-ulid)                                | Unique session ID generation                   |
-| [python-dotenv](https://github.com/theskumar/python-dotenv)                     | `.env` file loading                            |
+The 00_AI_Agents_Learning section contains four progressive tutorials. Run them in order:
+
+| #   | Notebook                   | Concepts                                     |
+| --- | -------------------------- | -------------------------------------------- |
+| 01  | Basic Agent Creation       | LangChain, OpenRouter, system prompts        |
+| 02  | Tools and Function Calling | @tool decorator, automatic tool selection    |
+| 03  | Multi-Agent Systems        | Orchestrator pattern, Agents as Tools        |
+| 04  | Resource Management        | Langfuse tracing, session IDs, cost tracking |
+
+See 00_AI_Agents_Learning/README.md for full setup and usage instructions.
 
 ---
 
-## 🔒 Security
+## Challenge Overview
 
-- **Never commit your `.env` file.** It is excluded by `.gitignore`.
-- API keys and Langfuse credentials must be kept private.
-- The `.venv` directories are also excluded from version control.
+The competition uses 5 datasets of increasing complexity. They unlock in two stages:
+
+| Stage | Datasets | Token Budget | Unlock Condition                     |
+| ----- | -------- | ------------ | ------------------------------------ |
+| 1     | 1, 2, 3  | $40          | Available at start                   |
+| 2     | 4, 5     | $120 more    | Submit eval solutions for all of 1-3 |
+
+Every submission requires three elements: a Langfuse session ID, a UTF-8 output file, and (for evaluation datasets only) a source code zip.
+Training submissions are unlimited and show a score each time. Evaluation submissions are one per dataset and cannot be re-submitted.
+
+See 02_AI_Agents_Challenge/00_How_It_Works/README.md for the full rules, scoring breakdown, prizes, and submission format.
+
+---
+
+## Tech Stack
+
+| Library          | Purpose                                        |
+| ---------------- | ---------------------------------------------- |
+| LangChain        | Agent framework and tool abstractions          |
+| LangGraph        | ReAct agent execution engine                   |
+| langchain-openai | OpenAI-compatible model connector              |
+| OpenRouter       | Unified LLM API gateway                        |
+| Langfuse         | Observability: token tracking, cost monitoring |
+| ulid-py          | Unique session ID generation                   |
+| python-dotenv    | .env file loading                              |
+
+---
+
+## Security
+
+Never commit the .env file. It is excluded by .gitignore.
+API keys and Langfuse credentials must be kept private at all times.
+The .venv directories are also excluded from version control.
