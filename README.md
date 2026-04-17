@@ -1,10 +1,10 @@
 # AI Agents - Reply Code Challenge 2026
 
+![AI Agent Challenge Banner](resources/AI_Angent_Challenge.png)
+
 **Team:** spaghetti-overflow
 
 This repository and all the work contained within were created through the collaborative effort of our team members: Andrea Botticella, Elia Innocenti, Renato Mignone, and Simone Romano. See the [Authors](#authors) section for contact information and links to their profiles.
-
-![AI Agent Challenge Banner](resources/AI_Angent_Challenge.png)
 
 This repository contains the full learning path, sandbox training materials, and challenge solution workspace
 for the Reply Code Challenge 2026 - AI Agents track.
