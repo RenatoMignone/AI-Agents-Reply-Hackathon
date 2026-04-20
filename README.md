@@ -2,6 +2,11 @@
 
 ![AI Agent Challenge Banner](resources/AI_Angent_Challenge.png)
 
+![License](https://img.shields.io/github/license/RenatoMignone/AI_Agents_Hackathon)
+![Last Commit](https://img.shields.io/github/last-commit/RenatoMignone/AI_Agents_Hackathon)
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+![LangChain](https://img.shields.io/badge/LangChain-🦜-green)
+
 **Team:** spaghetti-overflow
 
 This repository and all the work contained within were created through the collaborative effort of our team members: Andrea Botticella, Elia Innocenti, Renato Mignone, and Simone Romano. See the [Authors](#authors) section for contact information and links to their profiles.
